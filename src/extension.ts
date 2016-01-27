@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
         let stringOfCode = '';
         
         try {
-            let stringOfCode = fixmyjs.fix(fileText, config);
+            stringOfCode = fixmyjs.fix(fileText, config);
         }
         catch (error) {
             vscode.window.showInformationMessage(error.message);
