@@ -3,19 +3,29 @@ var fixmyjs = require('fixmyjs');
 
 export function activate(context: vscode.ExtensionContext) {
 
-    var disposable = vscode.commands.registerCommand('extension.fixmyjs', () => {
+    var disposable = vscode.commands.registerCommand('extensions.fixmyjs', () => {
 
-        let config = vscode.workspace.getConfiguration().get('extension.fixmyjs');
+        let config: any = vscode.workspace.getConfiguration().get('extensions.fixmyjs');
+
+        if (config.path) {
+            try {
+                config = require(vscode.workspace.rootPath + config.path);
+            }
+            catch (error) {
+                showError(error.message);
+                return;
+            }
+        }
 
         let editor = vscode.window.activeTextEditor;
         let fileText = editor.document.getText();
         let stringOfCode = '';
-        
+
         try {
             stringOfCode = fixmyjs.fix(fileText, config);
         }
         catch (error) {
-            vscode.window.showInformationMessage(error.message);
+            showError(error.message);
             return;
         }
 
@@ -31,6 +41,10 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     context.subscriptions.push(disposable);
+}
+
+function showError(message) {
+    vscode.window.showInformationMessage(message);
 }
 
 // this method is called when your extension is deactivated
