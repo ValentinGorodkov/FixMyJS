@@ -31,7 +31,7 @@
     "vscode": "0.10.x"
   },
   "dependencies": {
-    "fixmyjs": "git@github.com:jshint/fixmyjs.git#7e016c2",
+    "fixmyjs": "git://github.com/jshint/fixmyjs.git#7e016c2",
     "jshint": "^2.9.1"
   }
 }

@@ -7,7 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         let config: any = vscode.workspace.getConfiguration().get('extensions.fixmyjs');
 
-        if (config.path) {
+        if (config && config.path) {
             try {
                 config = require(vscode.workspace.rootPath + config.path);
             }
